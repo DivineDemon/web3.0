@@ -1,7 +1,8 @@
-/* eslint-disable */
+import React, { useContext } from "react";
 import { AiPlayFillCircle } from "react-icons/ai";
 import { SiEthereum } from "react-icons/si";
 import { BsInfoCircle } from "react-icons/bs";
+import { TransactionContext } from "../context/TransactionContext";
 import Loader from "./Loader";
 
 const commonStyles =
@@ -19,7 +20,7 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
 );
 
 const Welcome = () => {
-  const connectWallet = () => {};
+  const { connectWallet, currentAccount } = useContext(TransactionContext);
   const handleSubmit = () => {};
 
   return (
@@ -33,13 +34,17 @@ const Welcome = () => {
             Explore the Crypto World. Buy and sell cryptocurrencies easily on
             Krypto.
           </p>
-          <button
-            type="button"
-            onClick={connectWallet}
-            className="flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]"
-          >
-            <p className="text-white text-base font-semibold">Connect Wallet</p>
-          </button>
+          {!currentAccount && (
+            <button
+              type="button"
+              onClick={connectWallet}
+              className="flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]"
+            >
+              <p className="text-white text-base font-semibold">
+                Connect Wallet
+              </p>
+            </button>
+          )}
           <div className="grid sm:grid-cols-3 grid-cols-2 w-full mt-10">
             <div className={`rounded-tl-2xl ${commonStyles}`}>Reliability</div>
             <div className={`${commonStyles}`}>Security</div>
@@ -93,7 +98,7 @@ const Welcome = () => {
             />
             <div className="h-[1px] w-full bg-gray-400 my-2" />
 
-            {true ? (
+            {false ? (
               <Loader />
             ) : (
               <button
