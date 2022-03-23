@@ -98,6 +98,7 @@ export const TransactionProvider = ({ children }) => {
         setIsLoading(true);
         console.log(`Loading - ${transactionHash.hash}`);
         await transactionHash.wait();
+
         console.log(`Success - ${transactionHash.hash}`);
         setIsLoading(false);
 
@@ -107,12 +108,11 @@ export const TransactionProvider = ({ children }) => {
         setTransactionCount(transactionsCount.toNumber());
         window.location.reload();
       } else {
-        console.log("No ethereum object");
+        throw new Error("No Ethereum Object!");
       }
     } catch (error) {
       console.log(error);
-
-      throw new Error("No ethereum object");
+      throw new Error(error);
     }
   };
 
